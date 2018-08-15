@@ -1,0 +1,20 @@
+# Mikrotik Login Key Knocking
+# 
+# 1 Key Pass
+# ระบบใช้ Key Access 1 Key
+# 
+/ip firewall filter
+add action=accept chain=input comment=5 protocol=icmp
+add action=accept chain=input comment=Winbox connection-state=new \
+    dst-port='remoteport' protocol=tcp src-address-list=Key-1-Knocking
+add action=add-src-to-address-list address-list=Key-1-Knocking \
+    address-list-timeout=1h chain=input comment="Key 1 Knocking" \
+    dst-port='keyknocking' protocol=tcp
+add action=accept chain=input connection-state=established,related
+add action=drop chain=input in-interface=WAN1 comment"Last Rule Don't Disable"
+add action=drop chain=input in-interface=WAN2 comment"Last Rule Don't Disable"
+#
+#
+# 'keyknocking' คือ Key Access ตั้งแต่ 1025-65535
+# 'remoteport'  คือ Port Remote
+#  in-interface=WAN1 และ 2 ก็เพิ่มตาม WAN ที่มี ใส่ให้ครบทุก WAN
