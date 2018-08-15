@@ -11,8 +11,8 @@ add action=add-src-to-address-list address-list=Key-1-Knocking \
     address-list-timeout=1h chain=input comment="Key 1 Knocking" \
     dst-port='keyknocking' protocol=tcp
 add action=accept chain=input connection-state=established,related
-add action=drop chain=input in-interface=WAN1 comment"Last Rule Don't Disable"
-add action=drop chain=input in-interface=WAN2 comment"Last Rule Don't Disable"
+add action=drop chain=input in-interface=WAN1 comment="Last Rule Don't Disable"
+add action=drop chain=input in-interface=WAN2 comment="Last Rule Don't Disable"
 #
 #
 # 'keyknocking' คือ Key Access ตั้งแต่ 1025-65535
